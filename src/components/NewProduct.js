@@ -1,15 +1,24 @@
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProductAction } from '../actions/productActions';
 
 const NewProduct = () => {
+    const [valuesForm, setValuesForm] = useState({ name: '', price: 0 });
+
     const dispatch = useDispatch();
 
-    const addProduct = () => dispatch(createNewProductAction());
+    const addProduct = product => dispatch(createNewProductAction(product));
 
     const onSubmit = e => {
         e.preventDefault();
+        const { name, price } = valuesForm;
 
-        addProduct();
+        if (name.trim() === '' || price <= 0) {
+            // Add message error
+            return;
+        }
+
+        addProduct({ name, price });
     };
 
     return (
@@ -26,6 +35,10 @@ const NewProduct = () => {
                                     className="form-control"
                                     placeholder="Product Name"
                                     name="name"
+                                    value={valuesForm.name}
+                                    onChange={e =>
+                                        setValuesForm({ ...valuesForm, name: e.target.value })
+                                    }
                                 />
                             </div>
                             <div className="form-group">
@@ -35,6 +48,13 @@ const NewProduct = () => {
                                     className="form-control"
                                     placeholder="Product Price"
                                     name="price"
+                                    value={valuesForm.price}
+                                    onChange={e =>
+                                        setValuesForm({
+                                            ...valuesForm,
+                                            price: parseInt(e.target.value),
+                                        })
+                                    }
                                 />
                             </div>
                             <button
