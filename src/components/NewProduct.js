@@ -1,11 +1,24 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewProductAction } from '../actions/productActions';
+
 const NewProduct = () => {
+    const dispatch = useDispatch();
+
+    const addProduct = () => dispatch(createNewProductAction());
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        addProduct();
+    };
+
     return (
         <div className="row justify-content-center">
             <div className="col-md-8">
                 <div className="card">
                     <div className="card-body">
                         <h2 className="text-center mb-4 font-weight-bold">Add New Product</h2>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             <div className="form-group">
                                 <label>Product Name</label>
                                 <input
