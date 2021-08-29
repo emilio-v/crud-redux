@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createNewProductAction } from '../actions/productActions';
 
-const NewProduct = () => {
+const NewProduct = ({ history }) => {
     const [valuesForm, setValuesForm] = useState({ name: '', price: 0 });
 
     const dispatch = useDispatch();
+
+    const isLoading = useSelector(state => state.products.loading);
 
     const addProduct = product => dispatch(createNewProductAction(product));
 
@@ -19,6 +21,8 @@ const NewProduct = () => {
         }
 
         addProduct({ name, price });
+
+        history.push('/');
     };
 
     return (
@@ -64,6 +68,7 @@ const NewProduct = () => {
                                 Add
                             </button>
                         </form>
+                        {isLoading && <p className="alert alert-info p2 mt-3 mb-0">Loading...</p>}
                     </div>
                 </div>
             </div>
