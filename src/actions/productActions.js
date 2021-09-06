@@ -49,7 +49,9 @@ export const getProductsAction = () => {
             const request = await productApi.get('/productos');
             const { data } = request;
             dispatch(successfulProductsDownload(data));
-        } catch (error) {}
+        } catch (error) {
+            dispatch(downloadProductsError());
+        }
     };
 };
 
@@ -61,4 +63,9 @@ const downloadProducts = () => ({
 const successfulProductsDownload = products => ({
     type: DOWNLOAD_PRODUCTS_SUCCESS,
     payload: products,
+});
+
+const downloadProductsError = () => ({
+    type: DOWNLOAD_PRODUCTS_ERROR,
+    payload: true,
 });
