@@ -80,6 +80,8 @@ export const deleteProductAction = id => {
         try {
             await productApi.delete(`/productos/${id}`);
             dispatch(deleteProductSuccess());
+
+            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         } catch (error) {
             dispatch(deleteProductError);
         }
