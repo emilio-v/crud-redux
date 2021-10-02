@@ -77,11 +77,12 @@ const downloadProductsError = () => ({
 export const deleteProductAction = id => {
     return async dispatch => {
         dispatch(getProductDelete(id));
-
         try {
             await productApi.delete(`/productos/${id}`);
             dispatch(deleteProductSuccess());
-        } catch (error) {}
+        } catch (error) {
+            dispatch(deleteProductError);
+        }
     };
 };
 
