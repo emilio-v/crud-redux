@@ -6,6 +6,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `json-server --watch db.json --port 4000`
+
+Runs a full fake REST API
+Open [ http://localhost:4000/productos](http://localhost:4000/productos) to view it in the browser
+
+**Note: you can use any port to runs the fake API**
+
 ### `npm start`
 
 Runs the app in the development mode.\
