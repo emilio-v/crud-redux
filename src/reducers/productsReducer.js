@@ -8,6 +8,9 @@ import {
     GET_PRODUCT_DELETE,
     PRODUCT_DELETED_ERROR,
     PRODUCT_DELETED_SUCCESS,
+    GET_PRODUCT_EDIT,
+    PRODUCT_EDITED_SUCCESS,
+    PRODUCT_EDITED_ERROR,
 } from '../types';
 
 // each reducer has its own state
@@ -16,6 +19,7 @@ const initialState = {
     error: null,
     loading: false,
     deletedProduct: null,
+    editProduct: null,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -36,6 +40,7 @@ export default (state = initialState, action) => {
         case ADD_PRODUCT_ERROR:
         case DOWNLOAD_PRODUCTS_ERROR:
         case PRODUCT_DELETED_ERROR:
+        case PRODUCT_EDITED_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -58,6 +63,19 @@ export default (state = initialState, action) => {
                 ...state,
                 products: state.products.filter(product => product.id !== state.deletedProduct),
                 deletedProduct: null,
+            };
+        case GET_PRODUCT_EDIT:
+            return {
+                ...state,
+                editProduct: action.payload,
+            };
+        case PRODUCT_EDITED_SUCCESS:
+            return {
+                ...state,
+                editProduct: null,
+                products: state.products.map(product =>
+                    product.id === action.payload.id ? (product = action.payload) : product
+                ),
             };
         default:
             return state;
