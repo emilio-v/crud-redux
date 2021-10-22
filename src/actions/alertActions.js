@@ -13,13 +13,12 @@ const showAlertError = alert => ({
 });
 
 //HIDE ALERT
-export const hideAlert = alert => {
+export const hideAlert = () => {
     return dispatch => {
         dispatch(hideAlertError());
     };
 };
 
-const hideAlertError = alert => ({
+const hideAlertError = () => ({
     type: HIDE_ALERT,
-    payload: alert,
 });
